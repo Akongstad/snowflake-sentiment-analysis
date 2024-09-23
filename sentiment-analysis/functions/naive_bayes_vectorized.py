@@ -2,16 +2,14 @@ import re
 #from _snowflake import vectorized # type: ignore
 import pandas as pd
 
-class SnowflakeSentiment:
+class SnowflakeSentimentVectorized:
         
     #@vectorized(input = pd.DataFrame)
     def end_partition(self, df):
 
-        # only labe=0 or label=4
-        result = df[df["label"].isin([0,4])]
-        
-        # lean
-        result["text"] = result["text"].apply(self.clean_py)
+        # clean
+        result = df[df["LABEL"].isin([0,4])]
+        result["REVIEW"] = result["REVIEW"].apply(self.clean_py)
         
     
         return result
@@ -25,11 +23,12 @@ class SnowflakeSentiment:
         filtered = filter(lambda word: word not in stops, lower)
         return list(filtered)
 
+
 import yelp_samples
 if "__main__" == __name__:
 
     samples = yelp_samples.SAMPLES
-    sentiment = SnowflakeSentiment()
+    sentiment = SnowflakeSentimentVectorized()
     df = pd.DataFrame(samples)
     result = sentiment.end_partition(df)
     print(result)
