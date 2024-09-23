@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "snowflake-sentiment"
+version = "0.1.0"
+description = ""
+authors = ["akongstad <kongstad@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pandas = "^2.2.3"
+pyarrow = "^17.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
