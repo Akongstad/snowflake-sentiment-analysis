@@ -26,7 +26,6 @@ class SnowflakeSentimentVectorized:
 
 import yelp_samples
 if "__main__" == __name__:
-
     samples = yelp_samples.SAMPLES
     sentiment = SnowflakeSentimentVectorized()
     df = pd.DataFrame(samples)
