@@ -1,4 +1,5 @@
 import re
+import math
 
 # from _snowflake import vectorized # type: ignore
 import pandas as pd
@@ -6,42 +7,55 @@ import pandas as pd
 class SnowflakeSentimentVectorized:
 
     # @vectorized(input = pd.DataFrame)
-    def end_partition(self, df):
-        probs = self.train(df)
-        return self.predict_all(probs, df)
-        
-    def predict_all(self, probabilities: pd.DataFrame, test_reviews: pd.DataFrame) -> float:
-        """predict sentiment of test reviews"""
-        # clean
-        test_reviews["REVIEW"] = test_reviews["REVIEW"].apply(self._clean_py)
-        test_reviews["PREDICTION"] = test_reviews["REVIEW"].apply(self._predict, args=(probabilities,))
-        
-        accuracy = sum(test_reviews["LABEL"] == test_reviews["PREDICTION"]) / len(test_reviews)
-        return accuracy
-     
-    def _predict(self, review: str, probs: pd.DataFrame) -> int:   
-        """predict sentiment of a single review"""
-        return 0
-
-    def train(self, df) -> pd.DataFrame:
-        """learn probabilities"""
+    def end_partition(self, df:pd.DataFrame):
         # clean
         result = df[df["LABEL"].isin([0, 4])]
         result["REVIEW"] = result["REVIEW"].apply(self._clean_py)
+        
+        # split
+        df_train = result[result["DATASET"] == "train"].copy()
+        df_test = result[result["DATASET"] == "test"].copy()
+        
+        probs, p_0, p_4, vocabulary = self.train(df_train)
+        accuracy = self.predict_all(df_test, probs, p_0, p_4, vocabulary)
+    
+        return pd.DataFrame({"ACCURACY ": [accuracy]})
+        
+    def predict_all(self, test_reviews: pd.DataFrame, probabilities: pd.DataFrame, p_0:float, p_4:float,vocabulary: set[str] ) -> float:
+        """predict sentiment of test reviews"""
+        
+        test_reviews["PREDICTION"] = -1
+        test_reviews["PREDICTION"] = test_reviews["REVIEW"].apply(self._predict, args=(probabilities, p_0, p_4,vocabulary))
+        accuracy = sum(test_reviews["LABEL"] == test_reviews["PREDICTION"]) / len(test_reviews)
+        
+        return accuracy
+     
+    def _predict(self, review: list[str], probabilities: pd.DataFrame, p_0, p_4, vocabulary: set[str]) -> int:   
+        """predict sentiment of a single review"""
+        prob_0, prob_4 = math.log(p_0), math.log(p_4)
 
+        for word in review:
+            if word in vocabulary: 
+                prob_0 += math.log(probabilities.at[word, "PROB_0"])
+                prob_4 += math.log(probabilities.at[word, "PROB_4"])
+        
+        return 0  if prob_0 > prob_4 else 4
+
+    def train(self, df_train) -> tuple[pd.DataFrame, float, float, set[str]]:
+        """learn probabilities"""
         # priors
         smoothing = 1
 
-        p_0 = len(result[result["LABEL"] == 0]) / len(result)
-        p_4 = len(result[result["LABEL"] == 4]) / len(result)
+        p_0 = len(df_train[df_train["LABEL"] == 0]) / len(df_train)
+        p_4 = len(df_train[df_train["LABEL"] == 4]) / len(df_train)
         assert p_0 + p_4 == 1
 
         vocabulary = set()
-        for review in result["REVIEW"]:
+        for review in df_train["REVIEW"]:
             vocabulary.update(review)
 
         # token occurence per class [0,4]
-        token_occurence = self._compute_token_occurences(result)
+        token_occurence = self._compute_token_occurences(df_train)
         # token probability per class [0,4]
         token_prob = self._compute_token_prob(token_occurence, smoothing, vocabulary)
         
@@ -56,7 +70,7 @@ class SnowflakeSentimentVectorized:
             }
         )
         
-        return training_results
+        return training_results.set_index("WORD"), p_0, p_4, vocabulary
         
 
     def _compute_token_prob(
