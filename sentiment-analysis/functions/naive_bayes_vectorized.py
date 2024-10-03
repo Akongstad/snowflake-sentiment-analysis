@@ -7,7 +7,21 @@ class SnowflakeSentimentVectorized:
 
     # @vectorized(input = pd.DataFrame)
     def end_partition(self, df):
-        return self.train(df)
+        probs = self.train(df)
+        return self.predict_all(probs, df)
+        
+    def predict_all(self, probabilities: pd.DataFrame, test_reviews: pd.DataFrame) -> float:
+        """predict sentiment of test reviews"""
+        # clean
+        test_reviews["REVIEW"] = test_reviews["REVIEW"].apply(self._clean_py)
+        test_reviews["PREDICTION"] = test_reviews["REVIEW"].apply(self._predict, args=(probabilities,))
+        
+        accuracy = sum(test_reviews["LABEL"] == test_reviews["PREDICTION"]) / len(test_reviews)
+        return accuracy
+     
+    def _predict(self, review: str, probs: pd.DataFrame) -> int:   
+        """predict sentiment of a single review"""
+        return 0
 
     def train(self, df) -> pd.DataFrame:
         """learn probabilities"""
