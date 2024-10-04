@@ -1,12 +1,34 @@
+create or replace table yelp_training_udft (data variant);
+create or replace table yelp_test_udft (data variant);
+COPY INTO yelp_training_udft from @chipmunk_stage/data/train-00000-of-00001.parquet FILE_FORMAT = training_db.TPCH_SF1.MYPARQUETFORMAT;
+COPY INTO yelp_test_udft from @chipmunk_stage/data/test-00000-of-00001.parquet FILE_FORMAT = training_db.TPCH_SF1.MYPARQUETFORMAT;
+
+create or replace table yelp_all_udft (data variant, dataset string);
+
+insert INTO yelp_all_udft (data, dataset) 
+    select data, 'train' from yelp_training_udft;
+insert INTO yelp_all_udft (data, dataset) 
+    select data, 'test' from yelp_test_udft;
+
+
+
+
+create or replace function snowflake_sentiment_vectorized(label int, review string, dataset string)
+returns table (accuracy double)
+language python
+runtime_version=3.11
+packages=('pandas')
+handler='SnowflakeSentimentVectorized'
+as $$
 import re
 import math
 
-# from _snowflake import vectorized # type: ignore
+from _snowflake import vectorized # type: ignore
 import pandas as pd
 
 class SnowflakeSentimentVectorized:
 
-    # @vectorized(input = pd.DataFrame)
+    @vectorized(input = pd.DataFrame)
     def end_partition(self, df:pd.DataFrame):
         # clean
         result = df[df["LABEL"].isin([0, 4])]
@@ -17,20 +39,18 @@ class SnowflakeSentimentVectorized:
         df_test = result[result["DATASET"] == "test"].copy()
         
         probs, p_0, p_4, vocabulary = self.train(df_train)
-        test_results = self.predict_all(df_test, probs, p_0, p_4, vocabulary)
-        
-        # Add ids 
-        test_results.insert(0, 'ID', test_results.index+1)
+        accuracy = self.predict_all(df_test, probs, p_0, p_4, vocabulary)
     
-        return test_results
+        return pd.DataFrame({"ACCURACY ": [accuracy]})
         
-    def predict_all(self, test_reviews: pd.DataFrame, probabilities: pd.DataFrame, p_0:float, p_4:float,vocabulary: set[str] ) -> pd.DataFrame:
+    def predict_all(self, test_reviews: pd.DataFrame, probabilities: pd.DataFrame, p_0:float, p_4:float,vocabulary: set[str] ) -> float:
         """predict sentiment of test reviews"""
         
         test_reviews["PREDICTION"] = -1
         test_reviews["PREDICTION"] = test_reviews["REVIEW"].apply(self._predict, args=(probabilities, p_0, p_4,vocabulary))
+        accuracy = sum(test_reviews["LABEL"] == test_reviews["PREDICTION"]) / len(test_reviews)
         
-        return test_reviews
+        return accuracy
      
     def _predict(self, review: list[str], probabilities: pd.DataFrame, p_0, p_4, vocabulary: set[str]) -> int:   
         """predict sentiment of a single review"""
@@ -113,13 +133,13 @@ class SnowflakeSentimentVectorized:
         lower = cleaned_text.lower().split()
         filtered = filter(lambda word: word not in stops, lower)
         return list(filtered)
+        
+$$;
+create or replace table udtf_training_results as
+select * from yelp_all_udft, table(snowflake_sentiment_vectorized(data:label::int, data:text::string, dataset::string) over (partition by 1));
+
+select * from udtf_training_results;
+
+drop function snowflake_sentiment_vectorized(int, string, string);
 
 
-import yelp_samples
-
-if "__main__" == __name__:
-    samples = yelp_samples.SAMPLES
-    sentiment = SnowflakeSentimentVectorized()
-    df = pd.DataFrame(samples)
-    result = sentiment.end_partition(df)
-    print(result)
