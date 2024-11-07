@@ -1,3 +1,7 @@
+""" 
+Used to test python udtfs with row by row processing. Not part of final implementation.
+"""
+
 import re
 
 class SnowflakeSentiment:

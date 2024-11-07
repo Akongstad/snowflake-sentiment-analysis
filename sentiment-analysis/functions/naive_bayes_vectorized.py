@@ -1,3 +1,8 @@
+"""
+Vectorized UDTF implementation of yelp_reviews_sql naive bayes.
+Approach: Take a dataframe and perform naive bayes. Return a datafram with predictions.
+"""
+
 import re
 import math
 
