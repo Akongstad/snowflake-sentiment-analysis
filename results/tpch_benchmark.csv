@@ -1,0 +1,1447 @@
+QUERY_ID,TPCH_QUERY,DATASET,WAREHOUSE_SIZE,REPETITION_NUM,START_TIME,END_TIME,ELAPSED_TIME_MS,QUERY_TEXT
+01b847c4-0004-2a9f-0000-137f004e5eda,18,tpch_sf1000,CHIPMUNK_WH_L,3,2024-11-10 07:31:18.723,2024-11-10 07:32:01.059,42336,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem
+where
+  o_orderkey in ("
+01b847c3-0004-2a9f-0000-137f004e5e9e,5,tpch_sf1000,CHIPMUNK_WH_L,3,2024-11-10 07:31:00.057,2024-11-10 07:31:13.029,12972,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.supplier,"
+01b847c2-0004-2a9a-0000-137f004e663e,1,tpch_sf1000,CHIPMUNK_WH_L,3,2024-11-10 07:30:40.930,2024-11-10 07:30:54.588,13658,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b847c2-0004-2a9f-0000-137f004e5e1e,18,tpch_sf1000,CHIPMUNK_WH_L,2,2024-11-10 07:29:26.908,2024-11-10 07:30:09.567,42659,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem
+where
+  o_orderkey in ("
+01b847c1-0004-2a9a-0000-137f004e65be,5,tpch_sf1000,CHIPMUNK_WH_L,2,2024-11-10 07:29:08.542,2024-11-10 07:29:21.626,13084,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.supplier,"
+01b847c1-0004-2a9f-0000-137f004e5daa,1,tpch_sf1000,CHIPMUNK_WH_L,2,2024-11-10 07:28:49.640,2024-11-10 07:29:03.401,13761,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b847b4-0004-2a9f-0000-137f004e5a32,18,tpch_sf1000,CHIPMUNK_WH_L,1,2024-11-10 07:16:10.475,2024-11-10 07:16:53.352,42877,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem
+where
+  o_orderkey in ("
+01b847b4-0004-2a9f-0000-137f004e59ea,5,tpch_sf1000,CHIPMUNK_WH_L,1,2024-11-10 07:15:48.853,2024-11-10 07:16:04.751,15898,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.supplier,"
+01b847b3-0004-2a9f-0000-137f004e59ce,1,tpch_sf1000,CHIPMUNK_WH_L,1,2024-11-10 07:15:27.176,2024-11-10 07:15:42.978,15802,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b847b2-0004-2a9f-0000-137f004e5976,18,tpch_sf1000,CHIPMUNK_WH_M,3,2024-11-10 07:13:17.266,2024-11-10 07:14:45.791,88525,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem
+where
+  o_orderkey in ("
+01b847b1-0004-2a9a-0000-137f004e619a,5,tpch_sf1000,CHIPMUNK_WH_M,3,2024-11-10 07:12:46.842,2024-11-10 07:13:11.441,24599,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.supplier,"
+01b847b0-0004-2a9a-0000-137f004e615a,1,tpch_sf1000,CHIPMUNK_WH_M,3,2024-11-10 07:12:14.730,2024-11-10 07:12:41.592,26862,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b847af-0004-2a9a-0000-137f004e610e,18,tpch_sf1000,CHIPMUNK_WH_M,2,2024-11-10 07:10:24.738,2024-11-10 07:11:54.261,89523,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem
+where
+  o_orderkey in ("
+01b847ae-0004-2a9f-0000-137f004e5816,5,tpch_sf1000,CHIPMUNK_WH_M,2,2024-11-10 07:09:54.663,2024-11-10 07:10:19.123,24460,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.supplier,"
+01b847ad-0004-2a9f-0000-137f004e57ce,1,tpch_sf1000,CHIPMUNK_WH_M,2,2024-11-10 07:09:22.421,2024-11-10 07:09:49.193,26772,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b847aa-0004-2a9f-0000-137f004e56fa,18,tpch_sf1000,CHIPMUNK_WH_M,1,2024-11-10 07:05:01.307,2024-11-10 07:06:34.254,92947,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem
+where
+  o_orderkey in ("
+01b847a8-0004-2a9a-0000-137f004e4f6e,5,tpch_sf1000,CHIPMUNK_WH_M,1,2024-11-10 07:04:06.556,2024-11-10 07:04:34.761,28205,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.supplier,"
+01b847a7-0004-2a9f-0000-137f004e5662,1,tpch_sf1000,CHIPMUNK_WH_M,1,2024-11-10 07:03:10.046,2024-11-10 07:03:40.898,30852,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b847a6-0004-2a9f-0000-137f004e55e6,18,tpch_sf1000,CHIPMUNK_WH_S,3,2024-11-10 06:58:46.470,2024-11-10 07:02:11.405,204935,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem
+where
+  o_orderkey in ("
+01b847a2-0004-2a9a-0000-137f004e4df6,5,tpch_sf1000,CHIPMUNK_WH_S,3,2024-11-10 06:57:47.602,2024-11-10 06:58:38.217,50615,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.supplier,"
+01b847a1-0004-2a9a-0000-137f004e4dba,1,tpch_sf1000,CHIPMUNK_WH_S,3,2024-11-10 06:56:45.796,2024-11-10 06:57:38.904,53108,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b8479f-0004-2a9a-0000-137f004e4d2a,18,tpch_sf1000,CHIPMUNK_WH_S,2,2024-11-10 06:51:49.684,2024-11-10 06:55:14.195,204511,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem
+where
+  o_orderkey in ("
+01b8479b-0004-2a9a-0000-137f004e4c86,5,tpch_sf1000,CHIPMUNK_WH_S,2,2024-11-10 06:50:49.793,2024-11-10 06:51:39.518,49725,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.supplier,"
+01b8479a-0004-2a9f-0000-137f004e536e,1,tpch_sf1000,CHIPMUNK_WH_S,2,2024-11-10 06:49:46.921,2024-11-10 06:50:39.529,52608,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84799-0004-2a9f-0000-137f004e5302,18,tpch_sf1000,CHIPMUNK_WH_S,1,2024-11-10 06:45:54.913,2024-11-10 06:49:22.837,207924,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem
+where
+  o_orderkey in ("
+01b84795-0004-2a9f-0000-137f004e5232,5,tpch_sf1000,CHIPMUNK_WH_S,1,2024-11-10 06:44:48.761,2024-11-10 06:45:43.835,55074,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.supplier,"
+01b84794-0004-2a9a-0000-137f004e4ae2,1,tpch_sf1000,CHIPMUNK_WH_S,1,2024-11-10 06:43:38.558,2024-11-10 06:44:38.646,60088,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84782-0004-2a9a-0000-137f004e29c2,18,tpch_sf1000,CHIPMUNK_WH_XS,3,2024-11-10 06:19:24.437,2024-11-10 06:25:52.861,388424,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem
+where
+  o_orderkey in ("
+01b8477b-0004-2a9f-0000-137f004e174a,5,tpch_sf1000,CHIPMUNK_WH_XS,3,2024-11-10 06:17:35.551,2024-11-10 06:19:14.636,99085,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.supplier,"
+01b84779-0004-2a9f-0000-137f004e14aa,1,tpch_sf1000,CHIPMUNK_WH_XS,3,2024-11-10 06:15:38.826,2024-11-10 06:17:27.048,108222,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84776-0004-2a9a-0000-137f004e08e6,18,tpch_sf1000,CHIPMUNK_WH_XS,2,2024-11-10 06:07:23.036,2024-11-10 06:13:57.752,394716,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem
+where
+  o_orderkey in ("
+01b8476f-0004-2a9a-0000-137f004defbe,5,tpch_sf1000,CHIPMUNK_WH_XS,2,2024-11-10 06:05:39.150,2024-11-10 06:07:15.777,96627,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.supplier,"
+01b8476d-0004-2a9f-0000-137f004df44e,1,tpch_sf1000,CHIPMUNK_WH_XS,2,2024-11-10 06:03:43.148,2024-11-10 06:05:30.763,107615,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b8476b-0004-2a9a-0000-137f004dea02,18,tpch_sf1000,CHIPMUNK_WH_XS,1,2024-11-10 05:56:21.952,2024-11-10 06:03:09.227,407275,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem
+where
+  o_orderkey in ("
+01b84764-0004-2a9a-0000-137f004de102,5,tpch_sf1000,CHIPMUNK_WH_XS,1,2024-11-10 05:53:50.290,2024-11-10 05:56:08.669,138379,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1000.supplier,"
+01b84761-0004-2a9f-0000-137f004dd41a,1,tpch_sf1000,CHIPMUNK_WH_XS,1,2024-11-10 05:51:36.137,2024-11-10 05:53:39.879,123742,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b8475e-0004-2a9f-0000-137f004dbf1a,18,tpch_sf100,CHIPMUNK_WH_L,3,2024-11-10 05:50:30.531,2024-11-10 05:50:33.522,2991,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem
+where
+  o_orderkey in (
+  "
+01b8475e-0004-2a9f-0000-137f004dbeca,5,tpch_sf100,CHIPMUNK_WH_L,3,2024-11-10 05:50:21.714,2024-11-10 05:50:23.307,1593,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.supplier,
+  S"
+01b8475e-0004-2a9f-0000-137f004dbe82,1,tpch_sf100,CHIPMUNK_WH_L,3,2024-11-10 05:50:13.694,2024-11-10 05:50:15.272,1578,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b8475d-0004-2a9a-0000-137f004dc71a,18,tpch_sf100,CHIPMUNK_WH_L,2,2024-11-10 05:49:41.967,2024-11-10 05:49:44.711,2744,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem
+where
+  o_orderkey in (
+  "
+01b8475d-0004-2a9f-0000-137f004dbd36,5,tpch_sf100,CHIPMUNK_WH_L,2,2024-11-10 05:49:34.097,2024-11-10 05:49:35.805,1708,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.supplier,
+  S"
+01b8475d-0004-2a9f-0000-137f004dbcca,1,tpch_sf100,CHIPMUNK_WH_L,2,2024-11-10 05:49:24.927,2024-11-10 05:49:26.725,1798,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b8475d-0004-2a9a-0000-137f004dc55e,18,tpch_sf100,CHIPMUNK_WH_L,1,2024-11-10 05:48:59.482,2024-11-10 05:49:02.969,3487,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem
+where
+  o_orderkey in (
+  "
+01b8475c-0004-2a9f-0000-137f004dbb52,5,tpch_sf100,CHIPMUNK_WH_L,1,2024-11-10 05:48:49.506,2024-11-10 05:48:52.060,2554,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.supplier,
+  S"
+01b8475c-0004-2a9f-0000-137f004dbae2,1,tpch_sf100,CHIPMUNK_WH_L,1,2024-11-10 05:48:40.074,2024-11-10 05:48:42.501,2427,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b8475b-0004-2a9a-0000-137f004dc2c2,18,tpch_sf100,CHIPMUNK_WH_M,3,2024-11-10 05:47:29.636,2024-11-10 05:47:35.786,6150,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem
+where
+  o_orderkey in (
+  "
+01b8475b-0004-2a9a-0000-137f004dc24e,5,tpch_sf100,CHIPMUNK_WH_M,3,2024-11-10 05:47:21.033,2024-11-10 05:47:23.571,2538,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.supplier,
+  S"
+01b8475b-0004-2a9f-0000-137f004db826,1,tpch_sf100,CHIPMUNK_WH_M,3,2024-11-10 05:47:11.085,2024-11-10 05:47:14.108,3023,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b8475a-0004-2a9f-0000-137f004db75a,18,tpch_sf100,CHIPMUNK_WH_M,2,2024-11-10 05:46:42.675,2024-11-10 05:46:48.868,6193,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem
+where
+  o_orderkey in (
+  "
+01b8475a-0004-2a9f-0000-137f004db6d6,5,tpch_sf100,CHIPMUNK_WH_M,2,2024-11-10 05:46:33.962,2024-11-10 05:46:36.596,2634,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.supplier,
+  S"
+01b8475a-0004-2a9a-0000-137f004dc07e,1,tpch_sf100,CHIPMUNK_WH_M,2,2024-11-10 05:46:24.315,2024-11-10 05:46:27.354,3039,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84759-0004-2a9a-0000-137f004daeea,18,tpch_sf100,CHIPMUNK_WH_M,1,2024-11-10 05:45:13.279,2024-11-10 05:45:20.060,6781,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem
+where
+  o_orderkey in (
+  "
+01b84759-0004-2a9f-0000-137f004db442,5,tpch_sf100,CHIPMUNK_WH_M,1,2024-11-10 05:45:03.094,2024-11-10 05:45:06.740,3646,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.supplier,
+  S"
+01b84759-0004-2a9f-0000-137f004db3da,1,tpch_sf100,CHIPMUNK_WH_M,1,2024-11-10 05:44:51.366,2024-11-10 05:44:55.356,3990,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84757-0004-2a9f-0000-137f004db186,18,tpch_sf100,CHIPMUNK_WH_S,3,2024-11-10 05:43:19.120,2024-11-10 05:43:32.045,12925,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem
+where
+  o_orderkey in (
+  "
+01b84757-0004-2a9f-0000-137f004db0e2,5,tpch_sf100,CHIPMUNK_WH_S,3,2024-11-10 05:43:08.108,2024-11-10 05:43:12.165,4057,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.supplier,
+  S"
+01b84757-0004-2a9f-0000-137f004db07e,1,tpch_sf100,CHIPMUNK_WH_S,3,2024-11-10 05:42:56.488,2024-11-10 05:43:02.151,5663,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84756-0004-2a9f-0000-137f004d9eca,18,tpch_sf100,CHIPMUNK_WH_S,2,2024-11-10 05:41:45.511,2024-11-10 05:41:58.942,13431,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem
+where
+  o_orderkey in (
+  "
+01b84755-0004-2a9f-0000-137f004d9e16,5,tpch_sf100,CHIPMUNK_WH_S,2,2024-11-10 05:41:35.031,2024-11-10 05:41:38.971,3940,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.supplier,
+  S"
+01b84755-0004-2a9a-0000-137f004da83e,1,tpch_sf100,CHIPMUNK_WH_S,2,2024-11-10 05:41:23.410,2024-11-10 05:41:29.152,5742,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84755-0004-2a9a-0000-137f004da78e,18,tpch_sf100,CHIPMUNK_WH_S,1,2024-11-10 05:40:49.104,2024-11-10 05:41:03.316,14212,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem
+where
+  o_orderkey in (
+  "
+01b84754-0004-2a9a-0000-137f004da716,5,tpch_sf100,CHIPMUNK_WH_S,1,2024-11-10 05:40:35.708,2024-11-10 05:40:41.806,6098,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.supplier,
+  S"
+01b84754-0004-2a9a-0000-137f004da6ae,1,tpch_sf100,CHIPMUNK_WH_S,1,2024-11-10 05:40:20.635,2024-11-10 05:40:29.137,8502,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84753-0004-2a9a-0000-137f004da57a,18,tpch_sf100,CHIPMUNK_WH_XS,3,2024-11-10 05:39:28.565,2024-11-10 05:39:49.890,21325,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem
+where
+  o_orderkey in (
+  "
+01b84753-0004-2a9a-0000-137f004da4a6,5,tpch_sf100,CHIPMUNK_WH_XS,3,2024-11-10 05:39:14.766,2024-11-10 05:39:21.662,6896,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.supplier,
+  S"
+01b84753-0004-2a9f-0000-137f004d996e,1,tpch_sf100,CHIPMUNK_WH_XS,3,2024-11-10 05:38:57.204,2024-11-10 05:39:08.393,11189,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84752-0004-2a9a-0000-137f004da2e2,18,tpch_sf100,CHIPMUNK_WH_XS,2,2024-11-10 05:37:55.384,2024-11-10 05:38:18.920,23536,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem
+where
+  o_orderkey in (
+  "
+01b84751-0004-2a9f-0000-137f004d973e,5,tpch_sf100,CHIPMUNK_WH_XS,2,2024-11-10 05:37:42.263,2024-11-10 05:37:49.445,7182,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.supplier,
+  S"
+01b84751-0004-2a9f-0000-137f004d96ca,1,tpch_sf100,CHIPMUNK_WH_XS,2,2024-11-10 05:37:25.253,2024-11-10 05:37:36.349,11096,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84751-0004-2a9f-0000-137f004d95aa,18,tpch_sf100,CHIPMUNK_WH_XS,1,2024-11-10 05:36:38.162,2024-11-10 05:36:59.347,21185,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem
+where
+  o_orderkey in (
+  "
+01b84750-0004-2a9a-0000-137f004d8fd2,5,tpch_sf100,CHIPMUNK_WH_XS,1,2024-11-10 05:36:21.897,2024-11-10 05:36:32.211,10314,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf100.supplier,
+  S"
+01b84750-0004-2a9f-0000-137f004d9466,1,tpch_sf100,CHIPMUNK_WH_XS,1,2024-11-10 05:36:01.349,2024-11-10 05:36:14.724,13375,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b8474e-0004-2a9a-0000-137f004d8cce,18,tpch_sf10,CHIPMUNK_WH_L,3,2024-11-10 05:34:39.918,2024-11-10 05:34:40.391,473,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem
+where
+  o_orderkey in (
+    s"
+01b8474e-0004-2a9f-0000-137f004d919e,5,tpch_sf10,CHIPMUNK_WH_L,3,2024-11-10 05:34:34.164,2024-11-10 05:34:34.702,538,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.supplier,
+  SNOWF"
+01b8474e-0004-2a9a-0000-137f004d8c1e,1,tpch_sf10,CHIPMUNK_WH_L,3,2024-11-10 05:34:28.179,2024-11-10 05:34:28.445,266,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b8474e-0004-2a9a-0000-137f004d8b7a,18,tpch_sf10,CHIPMUNK_WH_L,2,2024-11-10 05:34:08.167,2024-11-10 05:34:08.643,476,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem
+where
+  o_orderkey in (
+    s"
+01b8474e-0004-2a9f-0000-137f004d9076,5,tpch_sf10,CHIPMUNK_WH_L,2,2024-11-10 05:34:01.972,2024-11-10 05:34:02.534,562,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.supplier,
+  SNOWF"
+01b8474e-0004-2a9f-0000-137f004d9036,1,tpch_sf10,CHIPMUNK_WH_L,2,2024-11-10 05:33:55.877,2024-11-10 05:33:56.169,292,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b8474d-0004-2a9f-0000-137f004d7f46,18,tpch_sf10,CHIPMUNK_WH_L,2,2024-11-10 05:33:28.813,2024-11-10 05:33:29.248,435,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem
+where
+  o_orderkey in (
+    s"
+01b8474d-0004-2a9a-0000-137f004d89b2,5,tpch_sf10,CHIPMUNK_WH_L,2,2024-11-10 05:33:22.870,2024-11-10 05:33:23.418,548,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.supplier,
+  SNOWF"
+01b8474d-0004-2a9f-0000-137f004d7ece,1,tpch_sf10,CHIPMUNK_WH_L,2,2024-11-10 05:33:17.318,2024-11-10 05:33:17.583,265,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b8474c-0004-2a9f-0000-137f004d7da2,18,tpch_sf10,CHIPMUNK_WH_L,1,2024-11-10 05:32:35.353,2024-11-10 05:32:36.137,784,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem
+where
+  o_orderkey in (
+    s"
+01b8474c-0004-2a9a-0000-137f004d87fe,5,tpch_sf10,CHIPMUNK_WH_L,1,2024-11-10 05:32:28.122,2024-11-10 05:32:29.752,1630,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.supplier,
+  SNOWF"
+01b8474c-0004-2a9a-0000-137f004d87a6,1,tpch_sf10,CHIPMUNK_WH_L,1,2024-11-10 05:32:21.040,2024-11-10 05:32:22.210,1170,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b8474b-0004-2a9f-0000-137f004d7bd2,18,tpch_sf10,CHIPMUNK_WH_M,3,2024-11-10 05:31:40.845,2024-11-10 05:31:41.460,615,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem
+where
+  o_orderkey in (
+    s"
+01b8474b-0004-2a9a-0000-137f004d861a,5,tpch_sf10,CHIPMUNK_WH_M,3,2024-11-10 05:31:23.715,2024-11-10 05:31:24.392,677,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.supplier,
+  SNOWF"
+01b8474b-0004-2a9a-0000-137f004d8586,1,tpch_sf10,CHIPMUNK_WH_M,3,2024-11-10 05:31:08.504,2024-11-10 05:31:08.897,393,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b8474a-0004-2a9f-0000-137f004d7a22,18,tpch_sf10,CHIPMUNK_WH_M,2,2024-11-10 05:30:47.765,2024-11-10 05:30:48.402,637,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem
+where
+  o_orderkey in (
+    s"
+01b8474a-0004-2a9f-0000-137f004d79de,5,tpch_sf10,CHIPMUNK_WH_M,2,2024-11-10 05:30:40.878,2024-11-10 05:30:41.460,582,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.supplier,
+  SNOWF"
+01b8474a-0004-2a9a-0000-137f004d8416,1,tpch_sf10,CHIPMUNK_WH_M,2,2024-11-10 05:30:34.957,2024-11-10 05:30:35.310,353,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b8474a-0004-2a9a-0000-137f004d834a,18,tpch_sf10,CHIPMUNK_WH_M,1,2024-11-10 05:30:06.874,2024-11-10 05:30:07.908,1034,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem
+where
+  o_orderkey in (
+    s"
+01b8474a-0004-2a9f-0000-137f004d7886,5,tpch_sf10,CHIPMUNK_WH_M,1,2024-11-10 05:29:59.053,2024-11-10 05:30:00.957,1904,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.supplier,
+  SNOWF"
+01b84749-0004-2a9f-0000-137f004d782a,1,tpch_sf10,CHIPMUNK_WH_M,1,2024-11-10 05:29:52.723,2024-11-10 05:29:53.738,1015,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84748-0004-2a9a-0000-137f004d80ea,18,tpch_sf10,CHIPMUNK_WH_S,3,2024-11-10 05:28:44.230,2024-11-10 05:28:45.269,1039,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem
+where
+  o_orderkey in (
+    s"
+01b84748-0004-2a9f-0000-137f004d7606,5,tpch_sf10,CHIPMUNK_WH_S,3,2024-11-10 05:28:38.057,2024-11-10 05:28:38.835,778,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.supplier,
+  SNOWF"
+01b84748-0004-2a9a-0000-137f004d804a,1,tpch_sf10,CHIPMUNK_WH_S,3,2024-11-10 05:28:32.273,2024-11-10 05:28:32.792,519,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84748-0004-2a9a-0000-137f004d6faa,18,tpch_sf10,CHIPMUNK_WH_S,2,2024-11-10 05:28:12.948,2024-11-10 05:28:13.863,915,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem
+where
+  o_orderkey in (
+    s"
+01b84748-0004-2a9a-0000-137f004d6f6a,5,tpch_sf10,CHIPMUNK_WH_S,2,2024-11-10 05:28:06.745,2024-11-10 05:28:07.559,814,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.supplier,
+  SNOWF"
+01b84748-0004-2a9f-0000-137f004d7462,1,tpch_sf10,CHIPMUNK_WH_S,2,2024-11-10 05:28:00.741,2024-11-10 05:28:01.268,527,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84747-0004-2a9f-0000-137f004d738a,18,tpch_sf10,CHIPMUNK_WH_S,1,2024-11-10 05:27:32.008,2024-11-10 05:27:33.205,1197,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem
+where
+  o_orderkey in (
+    s"
+01b84747-0004-2a9f-0000-137f004d7336,5,tpch_sf10,CHIPMUNK_WH_S,1,2024-11-10 05:27:24.401,2024-11-10 05:27:26.241,1840,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.supplier,
+  SNOWF"
+01b84747-0004-2a9f-0000-137f004d72e6,1,tpch_sf10,CHIPMUNK_WH_S,1,2024-11-10 05:27:17.125,2024-11-10 05:27:18.683,1558,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84746-0004-2a9a-0000-137f004d6cea,18,tpch_sf10,CHIPMUNK_WH_XS,3,2024-11-10 05:26:43.389,2024-11-10 05:26:44.709,1320,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem
+where
+  o_orderkey in (
+    s"
+01b84746-0004-2a9f-0000-137f004d71aa,5,tpch_sf10,CHIPMUNK_WH_XS,3,2024-11-10 05:26:36.809,2024-11-10 05:26:37.624,815,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.supplier,
+  SNOWF"
+01b84746-0004-2a9a-0000-137f004d6c4a,1,tpch_sf10,CHIPMUNK_WH_XS,3,2024-11-10 05:26:29.942,2024-11-10 05:26:30.739,797,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84746-0004-2a9f-0000-137f004d70aa,18,tpch_sf10,CHIPMUNK_WH_XS,2,2024-11-10 05:26:10.633,2024-11-10 05:26:11.908,1275,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem
+where
+  o_orderkey in (
+    s"
+01b84746-0004-2a9a-0000-137f004d6b76,5,tpch_sf10,CHIPMUNK_WH_XS,2,2024-11-10 05:26:04.307,2024-11-10 05:26:05.379,1072,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.supplier,
+  SNOWF"
+01b84746-0004-2a9a-0000-137f004d6b2a,1,tpch_sf10,CHIPMUNK_WH_XS,2,2024-11-10 05:25:57.944,2024-11-10 05:25:58.759,815,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84745-0004-2a9f-0000-137f004d5ed2,18,tpch_sf10,CHIPMUNK_WH_XS,1,2024-11-10 05:25:02.087,2024-11-10 05:25:04.187,2100,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem
+where
+  o_orderkey in (
+    s"
+01b84745-0004-2a9f-0000-137f004d5e7e,5,tpch_sf10,CHIPMUNK_WH_XS,1,2024-11-10 05:24:54.221,2024-11-10 05:24:56.853,2632,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf10.supplier,
+  SNOWF"
+01b84744-0004-2a9f-0000-137f004d5e3a,1,tpch_sf10,CHIPMUNK_WH_XS,1,2024-11-10 05:24:46.913,2024-11-10 05:24:48.777,1864,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84741-0004-2a9f-0000-137f004d58f6,18,tpch_sf1,CHIPMUNK_WH_L,3,2024-11-10 05:21:05.264,2024-11-10 05:21:05.543,279,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem
+where
+  o_orderkey in (
+    sele"
+01b84741-0004-2a9f-0000-137f004d585a,5,tpch_sf1,CHIPMUNK_WH_L,3,2024-11-10 05:20:59.695,2024-11-10 05:20:59.999,304,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.supplier,
+  SNOWFLAKE"
+01b84740-0004-2a9f-0000-137f004d580e,1,tpch_sf1,CHIPMUNK_WH_L,3,2024-11-10 05:20:54.452,2024-11-10 05:20:54.644,192,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84740-0004-2a9f-0000-137f004d573a,18,tpch_sf1,CHIPMUNK_WH_L,2,2024-11-10 05:20:27.248,2024-11-10 05:20:27.518,270,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem
+where
+  o_orderkey in (
+    sele"
+01b84740-0004-2a9f-0000-137f004d56ee,5,tpch_sf1,CHIPMUNK_WH_L,2,2024-11-10 05:20:21.555,2024-11-10 05:20:21.920,365,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.supplier,
+  SNOWFLAKE"
+01b84740-0004-2a9a-0000-137f004d61a6,1,tpch_sf1,CHIPMUNK_WH_L,2,2024-11-10 05:20:16.142,2024-11-10 05:20:16.339,197,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b8473f-0004-2a9f-0000-137f004d551a,18,tpch_sf1,CHIPMUNK_WH_L,1,2024-11-10 05:19:09.176,2024-11-10 05:19:09.785,609,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem
+where
+  o_orderkey in (
+    sele"
+01b8473f-0004-2a9f-0000-137f004d549e,5,tpch_sf1,CHIPMUNK_WH_L,1,2024-11-10 05:18:58.923,2024-11-10 05:18:59.841,918,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.supplier,
+  SNOWFLAKE"
+01b8473e-0004-2a9f-0000-137f004d5452,1,tpch_sf1,CHIPMUNK_WH_L,1,2024-11-10 05:18:52.447,2024-11-10 05:18:53.392,945,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84738-0004-2a9f-0000-137f004d3a96,18,tpch_sf1,CHIPMUNK_WH_M,3,2024-11-10 05:11:59.091,2024-11-10 05:11:59.356,265,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem
+where
+  o_orderkey in (
+    sele"
+01b84737-0004-2a9a-0000-137f004d45d6,5,tpch_sf1,CHIPMUNK_WH_M,3,2024-11-10 05:11:53.818,2024-11-10 05:11:54.151,333,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.supplier,
+  SNOWFLAKE"
+01b84737-0004-2a9a-0000-137f004d458a,1,tpch_sf1,CHIPMUNK_WH_M,3,2024-11-10 05:11:48.383,2024-11-10 05:11:48.588,205,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84736-0004-2a9a-0000-137f004d42da,18,tpch_sf1,CHIPMUNK_WH_M,2,2024-11-10 05:10:05.368,2024-11-10 05:10:05.615,247,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem
+where
+  o_orderkey in (
+    sele"
+01b84736-0004-2a9a-0000-137f004d4296,5,tpch_sf1,CHIPMUNK_WH_M,2,2024-11-10 05:10:00.006,2024-11-10 05:10:00.316,310,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.supplier,
+  SNOWFLAKE"
+01b84735-0004-2a9f-0000-137f004d36f2,1,tpch_sf1,CHIPMUNK_WH_M,2,2024-11-10 05:09:54.760,2024-11-10 05:09:55.043,283,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84735-0004-2a9a-0000-137f004d41d6,18,tpch_sf1,CHIPMUNK_WH_M,1,2024-11-10 05:09:44.232,2024-11-10 05:09:44.562,330,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem
+where
+  o_orderkey in (
+    sele"
+01b84735-0004-2a9f-0000-137f004d361e,5,tpch_sf1,CHIPMUNK_WH_M,1,2024-11-10 05:09:37.395,2024-11-10 05:09:38.476,1081,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.supplier,
+  SNOWFLAKE"
+01b84735-0004-2a9f-0000-137f004d35ca,1,tpch_sf1,CHIPMUNK_WH_M,1,2024-11-10 05:09:30.961,2024-11-10 05:09:32.059,1098,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84734-0004-2a9a-0000-137f004d2f8a,18,tpch_sf1,CHIPMUNK_WH_S,1,2024-11-10 05:08:14.857,2024-11-10 05:08:15.155,298,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem
+where
+  o_orderkey in (
+    sele"
+01b84734-0004-2a9a-0000-137f004d2f46,5,tpch_sf1,CHIPMUNK_WH_S,1,2024-11-10 05:08:08.883,2024-11-10 05:08:09.228,345,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.supplier,
+  SNOWFLAKE"
+01b84734-0004-2a9f-0000-137f004d336e,1,tpch_sf1,CHIPMUNK_WH_S,1,2024-11-10 05:08:03.563,2024-11-10 05:08:03.762,199,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84733-0004-2a9a-0000-137f004d2e2a,18,tpch_sf1,CHIPMUNK_WH_S,2,2024-11-10 05:07:34.662,2024-11-10 05:07:34.982,320,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem
+where
+  o_orderkey in (
+    sele"
+01b84733-0004-2a9a-0000-137f004d2dda,5,tpch_sf1,CHIPMUNK_WH_S,2,2024-11-10 05:07:29.036,2024-11-10 05:07:29.404,368,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.supplier,
+  SNOWFLAKE"
+01b84733-0004-2a9f-0000-137f004d3232,1,tpch_sf1,CHIPMUNK_WH_S,2,2024-11-10 05:07:23.840,2024-11-10 05:07:24.060,220,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84732-0004-2a9f-0000-137f004d3076,18,tpch_sf1,CHIPMUNK_WH_S,3,2024-11-10 05:06:14.673,2024-11-10 05:06:15.151,478,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem
+where
+  o_orderkey in (
+    sele"
+01b84732-0004-2a9a-0000-137f004d2bb2,5,tpch_sf1,CHIPMUNK_WH_S,3,2024-11-10 05:06:08.180,2024-11-10 05:06:09.170,990,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.supplier,
+  SNOWFLAKE"
+01b84732-0004-2a9a-0000-137f004d2b62,1,tpch_sf1,CHIPMUNK_WH_S,3,2024-11-10 05:06:01.740,2024-11-10 05:06:02.929,1189,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b84730-0004-2a9a-0000-137f004d2952,18,tpch_sf1,CHIPMUNK_WH_XS,3,2024-11-10 05:04:42.876,2024-11-10 05:04:43.224,348,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem
+where
+  o_orderkey in (
+    sele"
+01b84730-0004-2a9a-0000-137f004d2916,5,tpch_sf1,CHIPMUNK_WH_XS,3,2024-11-10 05:04:37.513,2024-11-10 05:04:37.850,337,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.supplier,
+  SNOWFLAKE"
+01b84730-0004-2a9f-0000-137f004d1d66,1,tpch_sf1,CHIPMUNK_WH_XS,3,2024-11-10 05:04:32.281,2024-11-10 05:04:32.520,239,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b8472f-0004-2a9f-0000-137f004d1c2e,18,tpch_sf1,CHIPMUNK_WH_XS,2,2024-11-10 05:03:45.519,2024-11-10 05:03:45.888,369,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem
+where
+  o_orderkey in (
+    sele"
+01b8472f-0004-2a9f-0000-137f004d1be6,5,tpch_sf1,CHIPMUNK_WH_XS,2,2024-11-10 05:03:39.596,2024-11-10 05:03:39.954,358,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.supplier,
+  SNOWFLAKE"
+01b8472f-0004-2a9f-0000-137f004d1ba6,1,tpch_sf1,CHIPMUNK_WH_XS,2,2024-11-10 05:03:34.302,2024-11-10 05:03:34.536,234,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"
+01b8472e-0004-2a9f-0000-137f004d1a6e,18,tpch_sf1,CHIPMUNK_WH_XS,1,2024-11-10 05:02:47.256,2024-11-10 05:02:47.612,356,"select
+  c_name,
+  c_custkey,
+  o_orderkey,
+  o_orderdate,
+  o_totalprice,
+  sum(l_quantity)
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem
+where
+  o_orderkey in (
+    sele"
+01b8472e-0004-2a9a-0000-137f004d25b6,5,tpch_sf1,CHIPMUNK_WH_XS,1,2024-11-10 05:02:41.751,2024-11-10 05:02:42.199,448,"select
+  n_name,
+  sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.customer,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.orders,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.lineitem,
+  SNOWFLAKE_SAMPLE_DATA.tpch_sf1.supplier,
+  SNOWFLAKE"
+01b8472e-0004-2a9a-0000-137f004d256e,1,tpch_sf1,CHIPMUNK_WH_XS,1,2024-11-10 05:02:36.491,2024-11-10 05:02:36.723,232,"select
+       l_returnflag,
+       l_linestatus,
+       sum(l_quantity) as sum_qty,
+       sum(l_extendedprice) as sum_base_price,
+       sum(l_extendedprice * (1-l_discount)) as sum_disc_price,
+       sum(l_extendedprice * (1-l_discount) * (1+l_tax)) as s"

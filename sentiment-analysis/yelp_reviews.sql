@@ -1,9 +1,39 @@
+-- Benchmarking
+create schema bayes_sql_benchmark;
+
+CREATE TABLE benchmark_results (
+    language text, 
+    dataset text,
+    accuracy double, 
+    warehouse_size text,
+    repetition_num integer,
+    start_time TIMESTAMP,
+    end_time TIMESTAMP,
+    elapsed_time_ms NUMBER
+);
+
+use warehouse chipmunk_wh_xs;
+use warehouse chipmunk_wh_s;
+use warehouse chipmunk_wh_m;
+use warehouse chipmunk_wh_l;
+
+
+use schema public;
+ALTER SESSION SET USE_CACHED_RESULT=FALSE;
+set warehouse_size = (SELECT CURRENT_WAREHOUSE());
+set repetition_num = 3;
+set language = 'sql';
+set dataset = 'yelp-reviews';
+SET start_time = CURRENT_TIMESTAMP();
+
+
+-- Implementation
 -- Reading data.
 create or replace table yelp_reviews (
     id int IDENTITY(1,1) not null,
     label int not null, 
     review variant not null);
-    
+     
 COPY INTO yelp_training from @chipmunk_stage/data/train-00000-of-00001.parquet FILE_FORMAT = training_db.TPCH_SF1.MYPARQUETFORMAT;
 
     
@@ -15,7 +45,7 @@ insert into yelp_reviews (label, review)
             b.key,
             b.value
         from 
-            yelp_test a, lateral flatten(input => a.data) b
+            yelp_training a, lateral flatten(input => a.data) b
     )
     select -- min ensure we get a single value. Aggregate
         min(CASE WHEN key LIKE '%label%' THEN value END) AS label,
@@ -24,6 +54,7 @@ insert into yelp_reviews (label, review)
     GROUP BY data
     HAVING label IN ('0', '4');
 
+-- select *  from yelp_reviews;
 
 -- data processing reviews. Remove special characters and stopwords
 create or replace function clean(review string)
@@ -44,19 +75,17 @@ def clean_py(review:str) -> list[str] :
     return list(filtered)
 $$;
 
-create or replace table yelp_cleaned as 
-    select id, clean(review) as cleaned_review from yelp_reviews;
 
 -- Count word
 create or replace view total_word_count as
-    select top 1000 id, count(value) as word  from yelp_cleaned, lateral flatten(input => yelp_cleaned.cleaned_review) as words
+    select top 1000 id, count(value) as word  from yelp_reviews, lateral flatten(input => yelp_reviews.review) as words
     group by id
     order by id;
 select * from total_word_count;
 
 -- Count individual words
 create or replace table yelp_word_count as 
-    select id,  value as word, count(value) as word_count from yelp_cleaned, lateral flatten(input => yelp_cleaned.cleaned_review)
+    select id,  value as word, count(value) as word_count from yelp_reviews, lateral flatten(input => yelp_reviews.review)
     group by id, value;
 
 -- labeled word bag
@@ -126,7 +155,7 @@ select
     from prob_word_0
     full join prob_word_4 on prob_word_0.word = prob_word_4.word;
 
-
+select * from yelp_training_results;
 
 -- Bayes classification. Step 1. Read and Clean test data.
 create or replace table yelp_test (data variant);
@@ -197,8 +226,8 @@ SELECT
     --Probabilities are typically very small numbers, and multiplying many small numbers can lead to numerical underflow.
     -- The natural logarithm has the property:\log(a * b) = \log(a) + \log(b)
     -- EXP to go back to the original scale
-    (LN($P_0) + (SUM(LN(pred_0)))) AS log_pred_0,
-    (LN($P_4) + (SUM(LN(pred_4)))) AS log_pred_4
+    (LN($p_0) + (SUM(LN(pred_0)))) AS log_pred_0,
+    (LN($p_4) + (SUM(LN(pred_4)))) AS log_pred_4
 FROM
     preds
 GROUP BY
@@ -226,4 +255,17 @@ select
 from yelp_eval
 LEFT JOIN correct ON yelp_eval.id = correct.id;
 
-select * from accuracy;
+
+
+
+-- More benchmarking
+set accuracy = (select accuracy from accuracy);
+
+SET end_time = CURRENT_TIMESTAMP();
+set elapsed_time = (select datediff('milliseconds', $start_time, $end_time));
+
+use schema bayes_sql_benchmark;
+INSERT INTO benchmark_results (language, dataset,accuracy, warehouse_size, repetition_num, start_time, end_time, elapsed_time_ms)
+VALUES ($language, $dataset, $accuracy, $warehouse_size, $repetition_num, $start_time, $end_time, $elapsed_time);
+
+select * from benchmark_results order by end_time desc;

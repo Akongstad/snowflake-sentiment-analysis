@@ -1,3 +1,21 @@
+-- Benchmark 
+use schema bayes_sql_benchmark;
+use warehouse chipmunk_wh_xs;
+use warehouse chipmunk_wh_s;
+use warehouse chipmunk_wh_m;
+use warehouse chipmunk_wh_l;
+
+use schema public;
+ALTER SESSION SET USE_CACHED_RESULT=FALSE;
+set warehouse_size = (SELECT CURRENT_WAREHOUSE());
+set repetition_num = 3;
+set language = 'python-udtf';
+set dataset = 'yelp-reviews';
+SET start_time = CURRENT_TIMESTAMP();
+
+
+
+-- Implementation
 create or replace table yelp_training_udft (data variant);
 create or replace table yelp_test_udft (data variant);
 COPY INTO yelp_training_udft from @chipmunk_stage/data/train-00000-of-00001.parquet FILE_FORMAT = training_db.TPCH_SF1.MYPARQUETFORMAT;
@@ -10,11 +28,13 @@ insert INTO yelp_all_udft (data, dataset)
 insert INTO yelp_all_udft (data, dataset) 
     select data, 'test' from yelp_test_udft;
 
+select * from yelp_all_udft;
+
 
 
 
 create or replace function snowflake_sentiment_vectorized(label int, review string, dataset string)
-returns table (accuracy double)
+returns table (id int, label int, review array, dataset string, prediction int)
 language python
 runtime_version=3.11
 packages=('pandas')
@@ -39,18 +59,20 @@ class SnowflakeSentimentVectorized:
         df_test = result[result["DATASET"] == "test"].copy()
         
         probs, p_0, p_4, vocabulary = self.train(df_train)
-        accuracy = self.predict_all(df_test, probs, p_0, p_4, vocabulary)
-    
-        return pd.DataFrame({"ACCURACY ": [accuracy]})
+        test_results = self.predict_all(df_test, probs, p_0, p_4, vocabulary)
         
-    def predict_all(self, test_reviews: pd.DataFrame, probabilities: pd.DataFrame, p_0:float, p_4:float,vocabulary: set[str] ) -> float:
+        # Add ids 
+        test_results.insert(0, 'ID', test_results.index+1)
+    
+        return test_results
+        
+    def predict_all(self, test_reviews: pd.DataFrame, probabilities: pd.DataFrame, p_0:float, p_4:float,vocabulary: set[str] ) -> pd.DataFrame:
         """predict sentiment of test reviews"""
         
         test_reviews["PREDICTION"] = -1
         test_reviews["PREDICTION"] = test_reviews["REVIEW"].apply(self._predict, args=(probabilities, p_0, p_4,vocabulary))
-        accuracy = sum(test_reviews["LABEL"] == test_reviews["PREDICTION"]) / len(test_reviews)
         
-        return accuracy
+        return test_reviews
      
     def _predict(self, review: list[str], probabilities: pd.DataFrame, p_0, p_4, vocabulary: set[str]) -> int:   
         """predict sentiment of a single review"""
@@ -136,10 +158,36 @@ class SnowflakeSentimentVectorized:
         
 $$;
 create or replace table udtf_training_results as
-select * from yelp_all_udft, table(snowflake_sentiment_vectorized(data:label::int, data:text::string, dataset::string) over (partition by 1));
+select t.id, t.label, t.prediction, t.review, t.dataset from yelp_all_udft, table(snowflake_sentiment_vectorized(data:label::int, data:text::string, dataset::string)  over (partition by 1)) t;
 
 select * from udtf_training_results;
 
-drop function snowflake_sentiment_vectorized(int, string, string);
+create or replace view accuracy as
+with correct as (
+    select id
+    from udtf_training_results
+    where label = prediction
+)
+select 
+    (count(correct.id) / count(udtf_training_results.id)) as accuracy
+    from udtf_training_results
+    left JOIN correct ON udtf_training_results.id = correct.id;
 
+//select * from accuracy;
+
+//drop function snowflake_sentiment_vectorized(int, string, string);
+
+
+
+-- More benchmarking
+set accuracy = (select accuracy from accuracy);
+
+SET end_time = CURRENT_TIMESTAMP();
+set elapsed_time = (select datediff('milliseconds', $start_time, $end_time));
+
+use schema bayes_sql_benchmark;
+INSERT INTO benchmark_results (language, dataset,accuracy, warehouse_size, repetition_num, start_time, end_time, elapsed_time_ms)
+VALUES ($language, $dataset, $accuracy, $warehouse_size, $repetition_num, $start_time, $end_time, $elapsed_time);
+
+select * from benchmark_results order by end_time desc;
 
