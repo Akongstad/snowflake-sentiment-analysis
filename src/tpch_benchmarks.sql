@@ -1,29 +1,29 @@
--- Setup records 
+-- Setup records
 create schema tpch_benchmark;
-CREATE TABLE benchmark_results (
-    query_id STRING,
-    tpch_query integer, 
+create table benchmark_results (
+    query_id string,
+    tpch_query integer,
     dataset text,
     warehouse_size text,
     repetition_num integer,
-    start_time TIMESTAMP,
-    end_time TIMESTAMP,
-    elapsed_time_ms NUMBER,
+    start_time timestamp,
+    end_time timestamp,
+    elapsed_time_ms number,
     query_text text
 );
 --show tables history like 'benchmark_results';
 --undrop table benchmark_results;
 --alter table benchmark_results rename to temp;
 --select * from benchmark_results;
---ALTER SESSION SET USE_CACHED_RESULT=FALSE;
+--alter session set use_cached_result=false;
 
-CREATE OR REPLACE WAREHOUSE chipmunk_wh_xs
+create or replace warehouse chipmunk_wh_xs
   WAREHOUSE_SIZE = 'XSMALL';
-CREATE OR REPLACE WAREHOUSE chipmunk_wh_s
+create or replace warehouse chipmunk_wh_s
     WAREHOUSE_SIZE = 'SMALL';
-CREATE OR REPLACE WAREHOUSE chipmunk_wh_m
+create or replace warehouse chipmunk_wh_m
     WAREHOUSE_SIZE = 'MEDIUM';
-CREATE OR REPLACE WAREHOUSE chipmunk_wh_l
+create or replace warehouse chipmunk_wh_l
     WAREHOUSE_SIZE = 'LARGE';
 use warehouse chipmunk_wh_xs;
 use warehouse chipmunk_wh_s;
@@ -31,7 +31,7 @@ use warehouse chipmunk_wh_m;
 use warehouse chipmunk_wh_l;
 
 
--- TPC-h query 1 
+-- TPC-h query 1
 --(source:https://docs.snowflake.com/en/user-guide/sample-data-tpch)
 set dataset= 'tpch_sf1000';
 set warehouse_size = (SELECT CURRENT_WAREHOUSE());
@@ -58,16 +58,17 @@ select
  order by
        l_returnflag,
        l_linestatus;
+
 // Get results
 set query_id = LAST_QUERY_ID();
 set tpch_query = 1;
-set start_time = (SELECT start_time FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY())  where query_id = $query_id ORDER BY END_TIME DESC LIMIT 1);
-set end_time = (SELECT end_time FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY()) where query_id = $query_id ORDER BY END_TIME DESC LIMIT 1);
-set query_text = (SELECT left(query_text, 256) FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY())  where query_id = $query_id  ORDER BY END_TIME DESC LIMIT 1);
-set total_elapsed_time = (SELECT total_elapsed_time FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY()) where query_id = $query_id   ORDER BY END_TIME DESC LIMIT 1);
+set start_time = (select start_time from table(information_schema.query_history())  where query_id = $query_id order by end_time desc limit 1);
+set end_time = (select end_time from table(information_schema.query_history()) where query_id = $query_id order by end_time desc limit 1);
+set query_text = (select left(query_text, 256) from table(information_schema.query_history())  where query_id = $query_id  order by end_time desc limit 1);
+set total_elapsed_time = (select total_elapsed_time from table(information_schema.query_history()) where query_id = $query_id   order by end_time desc limit 1);
 
-INSERT INTO benchmark_results (query_id, tpch_query,dataset, warehouse_size, repetition_num, start_time, end_time, elapsed_time_ms, query_text)
-VALUES (LAST_QUERY_ID() ,$tpch_query, $dataset, $warehouse_size, $repetition_num, $start_time, $end_time, $total_elapsed_time, $query_text);
+insert into benchmark_results (query_id, tpch_query,dataset, warehouse_size, repetition_num, start_time, end_time, elapsed_time_ms, query_text)
+values (last_query_id() ,$tpch_query, $dataset, $warehouse_size, $repetition_num, $start_time, $end_time, $total_elapsed_time, $query_text);
 
 -- TPC-H query 5.
 -- https://github.com/apache/impala/blob/master/testdata/workloads/tpch/queries/tpch-q5.test
@@ -103,8 +104,8 @@ set end_time = (SELECT end_time FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY()) w
 set query_text = (SELECT left(query_text, 256) FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY())  where query_id = $query_id  ORDER BY END_TIME DESC LIMIT 1);
 set total_elapsed_time = (SELECT total_elapsed_time FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY()) where query_id = $query_id   ORDER BY END_TIME DESC LIMIT 1);
 
-INSERT INTO benchmark_results (query_id, tpch_query,dataset, warehouse_size, repetition_num, start_time, end_time, elapsed_time_ms, query_text)
-VALUES (LAST_QUERY_ID() ,$tpch_query, $dataset, $warehouse_size, $repetition_num, $start_time, $end_time, $total_elapsed_time, $query_text);
+insert into benchmark_results (query_id, tpch_query,dataset, warehouse_size, repetition_num, start_time, end_time, elapsed_time_ms, query_text)
+values (last_query_id() ,$tpch_query, $dataset, $warehouse_size, $repetition_num, $start_time, $end_time, $total_elapsed_time, $query_text);
 
 -- 18 TPC-H/TPC-R Large Volume Customer Query (Q18)
 -- Source: https://github.com/apache/impala/blob/master/testdata/workloads/tpch/queries/tpch-q18.test
@@ -146,12 +147,12 @@ limit 100;
 
 set query_id = LAST_QUERY_ID();
 set tpch_query = 18;
-set start_time = (SELECT start_time FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY())  where query_id = $query_id ORDER BY END_TIME DESC LIMIT 1);
-set end_time = (SELECT end_time FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY()) where query_id = $query_id ORDER BY END_TIME DESC LIMIT 1);
-set query_text = (SELECT left(query_text, 256) FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY())  where query_id = $query_id  ORDER BY END_TIME DESC LIMIT 1);
-set total_elapsed_time = (SELECT total_elapsed_time FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY()) where query_id = $query_id   ORDER BY END_TIME DESC LIMIT 1);
+set start_time = (select start_time from table(information_schema.query_history())  where query_id = $query_id order by end_time desc limit 1);
+set end_time = (select end_time from table(information_schema.query_history()) where query_id = $query_id order by end_time desc limit 1);
+set query_text = (select left(query_text, 256) from table(information_schema.query_history())  where query_id = $query_id  order by end_time desc limit 1);
+set total_elapsed_time = (select total_elapsed_time from table(information_schema.query_history()) where query_id = $query_id   order by end_time desc limit 1);
 
-INSERT INTO benchmark_results (query_id, tpch_query,dataset, warehouse_size, repetition_num, start_time, end_time, elapsed_time_ms, query_text)
-VALUES (LAST_QUERY_ID() ,$tpch_query, $dataset, $warehouse_size, $repetition_num, $start_time, $end_time, $total_elapsed_time, $query_text);
+insert into benchmark_results (query_id, tpch_query,dataset, warehouse_size, repetition_num, start_time, end_time, elapsed_time_ms, query_text)
+values (last_query_id() ,$tpch_query, $dataset, $warehouse_size, $repetition_num, $start_time, $end_time, $total_elapsed_time, $query_text);
 
 select * from benchmark_results order by end_time desc;

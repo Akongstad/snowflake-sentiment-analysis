@@ -1,4 +1,4 @@
--- Benchmark 
+-- Benchmark
 use schema bayes_sql_benchmark;
 use warehouse chipmunk_wh_xs;
 use warehouse chipmunk_wh_s;
@@ -6,30 +6,29 @@ use warehouse chipmunk_wh_m;
 use warehouse chipmunk_wh_l;
 
 use schema public;
-ALTER SESSION SET USE_CACHED_RESULT=FALSE;
-set warehouse_size = (SELECT CURRENT_WAREHOUSE());
+alter session set USE_CACHED_RESULT=FALSE;
+set warehouse_size = (select CURRENT_WAREHOUSE());
 set repetition_num = 3;
 set language = 'python-udtf';
 set dataset = 'yelp-reviews';
-SET start_time = CURRENT_TIMESTAMP();
+set start_time = CURRENT_TIMESTAMP();
 
 
 
 -- Implementation
 create or replace table yelp_training_udft (data variant);
 create or replace table yelp_test_udft (data variant);
-COPY INTO yelp_training_udft from @chipmunk_stage/data/train-00000-of-00001.parquet FILE_FORMAT = training_db.TPCH_SF1.MYPARQUETFORMAT;
-COPY INTO yelp_test_udft from @chipmunk_stage/data/test-00000-of-00001.parquet FILE_FORMAT = training_db.TPCH_SF1.MYPARQUETFORMAT;
+copy into yelp_training_udft from @chipmunk_stage/data/train-00000-of-00001.parquet FILE_FORMAT = training_db.TPCH_SF1.MYPARQUETFORMAT;
+copy into yelp_test_udft from @chipmunk_stage/data/test-00000-of-00001.parquet FILE_FORMAT = training_db.TPCH_SF1.MYPARQUETFORMAT;
 
 create or replace table yelp_all_udft (data variant, dataset string);
 
-insert INTO yelp_all_udft (data, dataset) 
+insert into yelp_all_udft (data, dataset)
     select data, 'train' from yelp_training_udft;
-insert INTO yelp_all_udft (data, dataset) 
+insert into yelp_all_udft (data, dataset)
     select data, 'test' from yelp_test_udft;
 
 select * from yelp_all_udft;
-
 
 
 
@@ -53,36 +52,36 @@ class SnowflakeSentimentVectorized:
         # clean
         result = df[df["LABEL"].isin([0, 4])]
         result["REVIEW"] = result["REVIEW"].apply(self._clean_py)
-        
+
         # split
         df_train = result[result["DATASET"] == "train"].copy()
         df_test = result[result["DATASET"] == "test"].copy()
-        
+
         probs, p_0, p_4, vocabulary = self.train(df_train)
         test_results = self.predict_all(df_test, probs, p_0, p_4, vocabulary)
-        
-        # Add ids 
+
+        # Add ids
         test_results.insert(0, 'ID', test_results.index+1)
-    
+
         return test_results
-        
+
     def predict_all(self, test_reviews: pd.DataFrame, probabilities: pd.DataFrame, p_0:float, p_4:float,vocabulary: set[str] ) -> pd.DataFrame:
         """predict sentiment of test reviews"""
-        
+
         test_reviews["PREDICTION"] = -1
         test_reviews["PREDICTION"] = test_reviews["REVIEW"].apply(self._predict, args=(probabilities, p_0, p_4,vocabulary))
-        
+
         return test_reviews
-     
-    def _predict(self, review: list[str], probabilities: pd.DataFrame, p_0, p_4, vocabulary: set[str]) -> int:   
+
+    def _predict(self, review: list[str], probabilities: pd.DataFrame, p_0, p_4, vocabulary: set[str]) -> int:
         """predict sentiment of a single review"""
         prob_0, prob_4 = math.log(p_0), math.log(p_4)
 
         for word in review:
-            if word in vocabulary: 
+            if word in vocabulary:
                 prob_0 += math.log(probabilities.at[word, "PROB_0"])
                 prob_4 += math.log(probabilities.at[word, "PROB_4"])
-        
+
         return 0  if prob_0 > prob_4 else 4
 
     def train(self, df_train) -> tuple[pd.DataFrame, float, float, set[str]]:
@@ -102,10 +101,10 @@ class SnowflakeSentimentVectorized:
         token_occurence = self._compute_token_occurences(df_train)
         # token probability per class [0,4]
         token_prob = self._compute_token_prob(token_occurence, smoothing, vocabulary)
-        
+
         # token in class_1, but not in class_2. Avoid 0 probs.
         default_prob = smoothing / (sum(token_occurence[0].values()) + len(vocabulary))
-        
+
         training_results = pd.DataFrame(
             {
                 "WORD": list(vocabulary),
@@ -113,9 +112,9 @@ class SnowflakeSentimentVectorized:
                 "PROB_4": [token_prob[4][word] if token_prob[4][word] else default_prob for word in vocabulary],
             }
         )
-        
+
         return training_results.set_index("WORD"), p_0, p_4, vocabulary
-        
+
 
     def _compute_token_prob(
         self,
@@ -128,7 +127,7 @@ class SnowflakeSentimentVectorized:
 
         # occurnces of w + 1 /
         # total occurences of words in class + vocab_size * 1
-        # remember to update both to avoid 0 
+        # remember to update both to avoid 0
         for label in [0, 4]:
             total = sum(token_occurence[label].values())
             for word in vocabulary:
@@ -155,7 +154,7 @@ class SnowflakeSentimentVectorized:
         lower = cleaned_text.lower().split()
         filtered = filter(lambda word: word not in stops, lower)
         return list(filtered)
-        
+
 $$;
 create or replace table udtf_training_results as
 select t.id, t.label, t.prediction, t.review, t.dataset from yelp_all_udft, table(snowflake_sentiment_vectorized(data:label::int, data:text::string, dataset::string)  over (partition by 1)) t;
@@ -168,26 +167,22 @@ with correct as (
     from udtf_training_results
     where label = prediction
 )
-select 
+select
     (count(correct.id) / count(udtf_training_results.id)) as accuracy
     from udtf_training_results
     left JOIN correct ON udtf_training_results.id = correct.id;
 
 //select * from accuracy;
 
-//drop function snowflake_sentiment_vectorized(int, string, string);
-
-
 
 -- More benchmarking
 set accuracy = (select accuracy from accuracy);
 
-SET end_time = CURRENT_TIMESTAMP();
+set end_time = CURRENT_TIMESTAMP();
 set elapsed_time = (select datediff('milliseconds', $start_time, $end_time));
 
 use schema bayes_sql_benchmark;
-INSERT INTO benchmark_results (language, dataset,accuracy, warehouse_size, repetition_num, start_time, end_time, elapsed_time_ms)
-VALUES ($language, $dataset, $accuracy, $warehouse_size, $repetition_num, $start_time, $end_time, $elapsed_time);
+insert into benchmark_results (language, dataset,accuracy, warehouse_size, repetition_num, start_time, end_time, elapsed_time_ms)
+values ($language, $dataset, $accuracy, $warehouse_size, $repetition_num, $start_time, $end_time, $elapsed_time);
 
 select * from benchmark_results order by end_time desc;
-

@@ -1,15 +1,15 @@
 -- Benchmarking
 create schema bayes_sql_benchmark;
 
-CREATE TABLE benchmark_results (
-    language text, 
+create table benchmark_results (
+    language text,
     dataset text,
-    accuracy double, 
+    accuracy double,
     warehouse_size text,
     repetition_num integer,
-    start_time TIMESTAMP,
-    end_time TIMESTAMP,
-    elapsed_time_ms NUMBER
+    start_time timestamp,
+    end_time timestamp,
+    elapsed_time_ms number
 );
 
 use warehouse chipmunk_wh_xs;
@@ -19,8 +19,8 @@ use warehouse chipmunk_wh_l;
 
 
 use schema public;
-ALTER SESSION SET USE_CACHED_RESULT=FALSE;
-set warehouse_size = (SELECT CURRENT_WAREHOUSE());
+alter session set USE_CACHED_RESULT=false;
+set warehouse_size = (select CURRENT_WAREHOUSE());
 set repetition_num = 3;
 set language = 'sql';
 set dataset = 'yelp-reviews';
@@ -31,28 +31,28 @@ SET start_time = CURRENT_TIMESTAMP();
 -- Reading data.
 create or replace table yelp_reviews (
     id int IDENTITY(1,1) not null,
-    label int not null, 
+    label int not null,
     review variant not null);
-     
+
 COPY INTO yelp_training from @chipmunk_stage/data/train-00000-of-00001.parquet FILE_FORMAT = training_db.TPCH_SF1.MYPARQUETFORMAT;
 
-    
+
 -- Clean data. extract labels
-insert into yelp_reviews (label, review) 
+insert into yelp_reviews (label, review)
     with flattened as (
-        select 
+        select
             a.data,
             b.key,
             b.value
-        from 
+        from
             yelp_training a, lateral flatten(input => a.data) b
     )
     select -- min ensure we get a single value. Aggregate
-        min(CASE WHEN key LIKE '%label%' THEN value END) AS label,
-        clean(min(CASE WHEN key LIKE '%text%' THEN value END)) AS text
-    FROM flattened
-    GROUP BY data
-    HAVING label IN ('0', '4');
+        min(case when key like '%label%' then value end) as label,
+        clean(min(case when key like '%text%' then value end)) as text
+    from flattened
+    group BY data
+    having label in ('0', '4');
 
 -- select *  from yelp_reviews;
 
@@ -84,25 +84,25 @@ create or replace view total_word_count as
 select * from total_word_count;
 
 -- Count individual words
-create or replace table yelp_word_count as 
+create or replace table yelp_word_count as
     select id,  value as word, count(value) as word_count from yelp_reviews, lateral flatten(input => yelp_reviews.review)
     group by id, value;
 
 -- labeled word bag
 create or replace table yelp_word_count_filtered as
-    SELECT yelp_word_count.id, yelp_reviews.label,yelp_word_count.word, yelp_word_count.word_count
-    FROM yelp_word_count
-    JOIN yelp_reviews ON yelp_word_count.id = yelp_reviews.id
-    WHERE yelp_reviews.label = 0 OR yelp_reviews.label = 4
-    ORDER BY yelp_word_count.id asc, yelp_word_count.word_count desc;
+    select yelp_word_count.id, yelp_reviews.label,yelp_word_count.word, yelp_word_count.word_count
+    from yelp_word_count
+    join yelp_reviews on yelp_word_count.id = yelp_reviews.id
+    where yelp_reviews.label = 0 or yelp_reviews.label = 4
+    order by yelp_word_count.id asc, yelp_word_count.word_count desc;
 
 
 -- Bayes training. Preproccessing Done. Now: Count occurences of tokens in each class (0,4)
 create or replace table yelp_occurences_per_class as
-    select 
-        word, 
-        label, 
-        sum(word_count) as occurrences 
+    select
+        word,
+        label,
+        sum(word_count) as occurrences
     from yelp_word_count_filtered
     group by word, label
     order by word asc, sum(word_count) desc;
@@ -128,30 +128,30 @@ set v_size = (select count(*) from vocabulary);
 -- occurnces of w +1 /
 -- total occurences in class + vocab_size * 1
 create or replace view prob_word_0 as
-SELECT 
-   word, 
+select
+   word,
    occurrences,
-   ((occurrences + $smoothing)::double / 
-   ( (SELECT SUM(occurrences) FROM words_0) + $v_size * $smoothing)::double) AS prob_0
-FROM 
+   ((occurrences + $smoothing)::double /
+   ( (select sum(occurrences) from words_0) + $v_size * $smoothing)::double) as prob_0
+from
    words_0;
 
 create or replace view prob_word_4 as
-SELECT 
-   word, 
+select
+   word,
    occurrences,
-   (occurrences + $smoothing)::double / 
-   ((SELECT SUM(occurrences) FROM words_4) + $v_size * $smoothing)::double AS prob_4,
-FROM 
+   (occurrences + $smoothing)::double /
+   ((select sum(occurrences) from words_4) + $v_size * $smoothing)::double as prob_4,
+from
    words_4;
 
 create or replace table yelp_training_results as
 select
-    COALESCE(prob_word_0.word, prob_word_4.word) AS word,
-    COALESCE(prob_word_0.occurrences, 0) AS occurrences_0,
-    COALESCE(prob_word_4.occurrences, 0) AS occurrences_4,
-    COALESCE(prob_word_0.prob_0, (($smoothing)::double / ((SELECT SUM(occurrences) FROM words_0) + $v_size * $smoothing)::double)) AS prob_0,
-    COALESCE(prob_word_4.prob_4, (($smoothing)::double / ((SELECT SUM(occurrences) FROM words_4) + $v_size * $smoothing)::double)) AS prob_4 
+    coalesce(prob_word_0.word, prob_word_4.word) as word,
+    coalesce(prob_word_0.occurrences, 0) as occurrences_0,
+    coalesce(prob_word_4.occurrences, 0) as occurrences_4,
+    coalesce(prob_word_0.prob_0, (($smoothing)::double / ((select sum(occurrences) from words_0) + $v_size * $smoothing)::double)) as prob_0,
+    coalesce(prob_word_4.prob_4, (($smoothing)::double / ((select sum(occurrences) from words_4) + $v_size * $smoothing)::double)) as prob_4
     from prob_word_0
     full join prob_word_4 on prob_word_0.word = prob_word_4.word;
 
@@ -159,88 +159,88 @@ select * from yelp_training_results;
 
 -- Bayes classification. Step 1. Read and Clean test data.
 create or replace table yelp_test (data variant);
-COPY INTO yelp_test from @chipmunk_stage/data/test-00000-of-00001.parquet FILE_FORMAT = training_db.TPCH_SF1.MYPARQUETFORMAT;
+copy into yelp_test from @chipmunk_stage/data/test-00000-of-00001.parquet FILE_FORMAT = training_db.TPCH_SF1.MYPARQUETFORMAT;
 
 create or replace table test_yelp_reviews (
     id int IDENTITY(1,1) not null,
-    label int not null, 
+    label int not null,
     review variant not null);
 
-insert into test_yelp_reviews (label, review) 
-    WITH flattened AS (
-        SELECT 
+insert into test_yelp_reviews (label, review)
+    with flattened as (
+        select
             a.data,
             b.key,
             b.value
-        FROM 
-            yelp_test a, LATERAL FLATTEN(input => a.data) b
+        from
+            yelp_test a, lateral flatten(input => a.data) b
     )
-    SELECT -- min ensure we get a single value. Aggregate
-        min(CASE WHEN key LIKE '%label%' THEN value END) AS label,
-        clean(min(CASE WHEN key LIKE '%text%' THEN value END)) AS text
-    FROM flattened
-    GROUP BY data
-    HAVING label IN ('0', '4');
-      
+    select -- min ensure we get a single value. aggregate
+        min(case when key like '%label%' then value end) as label,
+        clean(min(case when key like '%text%' then value end)) as text
+    from flattened
+    group by data
+    having label in ('0', '4');
 
--- Remove unknown words 
+
+-- Remove unknown words
 -- Sentiment analysis -- Scoring. Compute posterior prob from prior and likelyhoods for each class. Choose the highest value.
 create or replace table test_yelp_reviews_pred as
-WITH flattened AS (
-    SELECT
+with flattened as (
+    select
         id,
         label,
         value as review_word
-    FROM
+    from
         test_yelp_reviews,
-        LATERAL FLATTEN(input => review)
+        lateral flatten(input => review)
 ),
-known_word_reviews AS (
-    SELECT
+known_word_reviews as (
+    select
         id,
         label,
-        review_word AS word
-    FROM
+        review_word as word
+    from
         flattened f
-    JOIN
+    join
         vocabulary
-    ON
+    on
         f.review_word = vocabulary.word
 ), --- preds
-preds AS (
+preds as (
     select
         id,
         label,
         revs.word,
         yelp_training_results.prob_0 as pred_0,
         yelp_training_results.prob_4 as pred_4,
-    from 
+    from
         known_word_reviews revs
     join yelp_training_results on revs.word = yelp_training_results.word
 )
 
-SELECT 
+select
     id,
     label,
-    ARRAY_AGG(word) as review,
-    --Probabilities are typically very small numbers, and multiplying many small numbers can lead to numerical underflow.
-    -- The natural logarithm has the property:\log(a * b) = \log(a) + \log(b)
-    -- EXP to go back to the original scale
-    (LN($p_0) + (SUM(LN(pred_0)))) AS log_pred_0,
-    (LN($p_4) + (SUM(LN(pred_4)))) AS log_pred_4
-FROM
+    array_agg(word) as review,
+    --probabilities are typically very small numbers, and multiplying many small numbers can lead to numerical underflow.
+    -- the natural logarithm has the property:\log(a * b) = \log(a) + \log(b)
+    -- exp to go back to the original scale
+    (ln($p_0) + (sum(ln(pred_0)))) as log_pred_0,
+    (ln($p_4) + (sum(ln(pred_4)))) as log_pred_4
+from
     preds
-GROUP BY
+group by
     id,
     label;
 
 create or replace table yelp_eval as
-select 
-    id, 
-    label, 
-    case when log_pred_0 > log_pred_4 then 0 else 4 end as pred_label, 
-    review, 
-    log_pred_0, 
+select
+    id,
+    label,
+    case when log_pred_0 > log_pred_4 then 0 else 4 end as pred_label,
+    review,
+    log_pred_0,
     log_pred_4
 from test_yelp_reviews_pred;
 
@@ -250,22 +250,19 @@ with correct as (
     from yelp_eval
     where label = pred_label
 )
-select 
+select
     (count(correct.id) / count(yelp_eval.id)) as accuracy
 from yelp_eval
-LEFT JOIN correct ON yelp_eval.id = correct.id;
-
-
-
+left join correct on yelp_eval.id = correct.id;
 
 -- More benchmarking
 set accuracy = (select accuracy from accuracy);
 
-SET end_time = CURRENT_TIMESTAMP();
+set end_time = CURRENT_TIMESTAMP();
 set elapsed_time = (select datediff('milliseconds', $start_time, $end_time));
 
 use schema bayes_sql_benchmark;
-INSERT INTO benchmark_results (language, dataset,accuracy, warehouse_size, repetition_num, start_time, end_time, elapsed_time_ms)
-VALUES ($language, $dataset, $accuracy, $warehouse_size, $repetition_num, $start_time, $end_time, $elapsed_time);
+insert into benchmark_results (language, dataset,accuracy, warehouse_size, repetition_num, start_time, end_time, elapsed_time_ms)
+values ($language, $dataset, $accuracy, $warehouse_size, $repetition_num, $start_time, $end_time, $elapsed_time);
 
 select * from benchmark_results order by end_time desc;
