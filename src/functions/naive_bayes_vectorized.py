@@ -81,14 +81,10 @@ class SnowflakeSentimentVectorized:
         # token occurence per class [0,4]
         token_occurence = self._compute_token_occurences(df_train)
         # token probability per class [0,4]
-        token_prob = self._compute_token_prob(
-            token_occurence, smoothing, vocabulary
-        )
+        token_prob = self._compute_token_prob(token_occurence, smoothing, vocabulary)
 
         # token in class_1, but not in class_2. Avoid 0 probs.
-        default_prob = smoothing / (
-            sum(token_occurence[0].values()) + len(vocabulary)
-        )
+        default_prob = smoothing / (sum(token_occurence[0].values()) + len(vocabulary))
 
         training_results = pd.DataFrame(
             {
@@ -121,9 +117,9 @@ class SnowflakeSentimentVectorized:
         for label in [0, 4]:
             total = sum(token_occurence[label].values())
             for word in vocabulary:
-                token_prob[label][word] = (
-                    token_occurence[label].get(word, 0) + smoothing
-                ) / (total + len(vocabulary) * smoothing)
+                token_prob[label][word] = (token_occurence[label].get(word, 0) + smoothing) / (
+                    total + len(vocabulary) * smoothing
+                )
         return token_prob
 
     def _compute_token_occurences(self, df) -> dict[int, dict[str, int]]:
@@ -134,9 +130,7 @@ class SnowflakeSentimentVectorized:
             label = row["LABEL"]
             review = row["REVIEW"]
             for word in review:
-                token_occurence[label][word] = (
-                    token_occurence[label].get(word, 0) + 1
-                )
+                token_occurence[label][word] = token_occurence[label].get(word, 0) + 1
         return token_occurence
 
     def _clean_py(self, review: str) -> list[str]:

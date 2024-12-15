@@ -1,14 +1,10 @@
 # Matering Snowflake | Project
-## Contents
 Mastering Snowflake: Sentiment Analysis and Performance Experiments | Advanced Datasystems 2024 | ITU
-
+## Contents
 This repository contains:
 
-- 2 implementations of naive bayes sentiment analysis. (Includes the benchmarking code.)
-
-  1. An sql implementation in `src/yelp_reviews.sql`. Runs in Snowflake.
-  2. A python UDTF implementation that takes the yelp review data as a Pandas Dataframe and returns a table with predictions when run with `src/yelp_reviews_udtf.sql`. Runs in snowflake.
-
-- A TPC-H benchmark using queries 1, 5, and 18 in `src/tpch_benchmarks.sql`
-
-- All results as CSV files in `results`
+- **src/yelp_reviews.sql**: SQL implementation f naive bayes sentiment analysis. (Includes the benchmarking code.)
+- **src/yelp_reviews_udtf.sql**: Snowflake Vectorized UDTF implementation of naive bayes sentiment analysis for snowflake. (Includes the benchmarking code.)
+- **src/tpch_benchmarks.sql**: A TPC-H benchmark experiment using queries 1, 5, and 18
+- **src/functions**: Python only implementation of the Vectorized UDTF and data cleaning function.
+- **results/**: Experiment results from the TPCH and sentiment analysis experiments as CSV files
